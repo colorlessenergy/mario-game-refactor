@@ -16,15 +16,20 @@ class Game {
   constructor () {
     var self = this;
     this.backgrounds = new background(canvas, context, sprite, tile);
+    this.player = new Player(sprite, context)
 
-    tile.addEventListener("load", function () {
-      self.backgrounds.update();
-    })
+
+    this.update();
+
   }
 
+
   update () {
-    self.backgrounds.update()
+    window.requestAnimationFrame(this.update.bind(this));
+
+    this.backgrounds.update();
+    this.player.update();
   }
 }
 
-new Game()
+new Game();
