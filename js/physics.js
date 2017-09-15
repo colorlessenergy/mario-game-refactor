@@ -1,12 +1,22 @@
 class Physics {
-  constructor(vel, pos) {
+  constructor(vel, pos, map) {
     this.vel = vel;
     this.pos = pos
+    this.map = map;
   }
 
   gravity() {
+    var self = this;
     this.vel.y += 0.6;
     this.pos.y += this.vel.y;
+
+    this.map.forEach(function (outer, outerIndex) {
+      outer.forEach(function (inner, currentIndex) {
+         if (inner === 8) {
+           console.log(outerIndex);
+        }
+      });
+      })
 
   }
 
