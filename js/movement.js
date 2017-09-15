@@ -1,10 +1,9 @@
 class Movement {
-  constructor (pos, vel, currentState, frame) {
+  constructor (pos, vel) {
     this.down = {};
 
     this.pressed = {};
 
-    this.currentState = currentState;
     this.currentFrame = 0;
     this.pos = pos;
 
@@ -28,6 +27,7 @@ class Movement {
       this.pos.x += this.vel.x;
       if (animations.frame % 5 === 0) {
         animations.currentState = animations.walking[this.currentFrame];
+        console.log(animations.walking);
         this.currentFrame++;
         if (this.currentFrame > 2) {
           this.currentFrame = 0;

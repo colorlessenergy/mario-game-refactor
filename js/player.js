@@ -19,7 +19,6 @@ class Player {
   update () {
     animations.frame++;
     this.entity = new Entity(animations.currentState, this.sprite, this.vel, this.pos, this.context);
-    console.log(animations.currentState);
     this.movement.animations();
     this.physics.gravity();
     this.physics.typeOfCollisions();
