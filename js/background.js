@@ -1,3 +1,6 @@
+const wallArray = [];
+
+
 class background {
   constructor (canvas, context, sprite, tile) {
     this.canvas = canvas;
@@ -39,6 +42,12 @@ class background {
             32,
             32
           );
+          wallArray.push({
+            x: currentIndex * 32,
+            y: outerIndex * 32,
+            h: 32,
+            w: 32
+          });
         } else if (inner === 2) {
           self.context.drawImage(
             self.tile,
