@@ -1,9 +1,9 @@
 class Entity {
-  constructor(x, y, h, w, sprite, vel, pos, context) {
-    this.x = x;
-    this.y = y;
-    this.h = h,
-    this.w = w;
+  constructor(data, sprite, vel, pos, context) {
+    this.x = data.x;
+    this.y = data.y;
+    this.h = data.h,
+    this.w = data.w;
     this.sprite = sprite
     this.vel = vel;
     this.pos = pos

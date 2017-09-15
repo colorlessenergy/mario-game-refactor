@@ -25,6 +25,8 @@ class Game {
 
 
   update () {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
     window.requestAnimationFrame(this.update.bind(this));
 
     this.backgrounds.update();
