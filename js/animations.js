@@ -1,3 +1,5 @@
+var left = false;
+
 var animations = {
   frame: 0,
 

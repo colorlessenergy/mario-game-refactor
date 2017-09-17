@@ -5,6 +5,8 @@ class Movement {
     this.pressed = {};
 
     this.currentFrame = 0;
+
+    this.currentFrameL = 0;
     this.pos = pos;
 
     this.vel = vel;
@@ -21,11 +23,16 @@ class Movement {
       delete self.pressed[event.keyCode];
     });
 
-    if (this.vel.y === 0 && !(this.isDown(39))) {
+    // this makes it stand when the keys aren't pressed so mario
+    // doesnt randomly stand
+    if (this.vel.y === 0 && !left && !(this.isDown(39))) {
+      animations.currentState = animations.standing;
+    } else if (this.vel.y === 0 && left && !(this.isDown(37))) {
       animations.currentState = animations.standing;
     }
 
     if (this.isDown(39)) {
+      left = false;
       if (this.vel.y < 0 || this.vel.y > 0) {
         animations.currentState = animations.jumping;
         this.pos.x += this.vel.x;
@@ -49,11 +56,11 @@ class Movement {
       } else if (this.vel.y === 0){
         this.pos.x -= this.vel.x;
         if (animations.frame % 5 === 0) {
-          animations.currentState = animations.walking[this.currentFrame];
-          console.log(animations.walking);
-          this.currentFrame++;
-          if (this.currentFrame > 2) {
-            this.currentFrame = 0;
+          left = true;
+          animations.currentState = animations.walking[this.currentFrameL];
+          this.currentFrameL++;
+          if (this.currentFrameL > 2) {
+            this.currentFrameL = 0;
           }
         }
       }

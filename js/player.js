@@ -14,15 +14,16 @@ class Player {
       {x: 1.2, y: 0},
       {x: 288, y: 128 - 32}
     ];
-    this.physics = new Physics(this.vel, this.pos, this.context, this.sprite, this.tile);
-    this.movement = new Movement(this.pos, this.vel);
-
 
     animations.walking = animations.walkDefined(this.pos);
 
     animations.currentState = animations.jumping;
 
-    this.mushphy = new Physics(this.mushProp[1], this.mushProp[2], this.context, this.sprite, this.tile)
+    this.physics = new Physics(this.vel, this.pos, this.context, this.sprite, animations.currentState);
+    this.movement = new Movement(this.pos, this.vel);
+
+
+    this.mushphy = new Physics(this.mushProp[1], this.mushProp[2], this.context, this.tile, this.mushProp[0])
     this.mush = new Entity(this.mushProp[0], this.tile, this.mushProp[1], this.mushProp[2], this.context, true);
 
   }
@@ -38,7 +39,6 @@ class Player {
       this.mushphy.gravity();
       this.mushphy.typeOfCollisions();
       this.mush.enemyMovement();
-      this.mush.draw();
     }
   }
 
