@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 var left = false;
 
-=======
->>>>>>> master
 var animations = {
   frame: 0,
 
