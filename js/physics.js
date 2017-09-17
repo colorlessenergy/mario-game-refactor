@@ -43,7 +43,6 @@ class Physics {
     } else if (left) {
       if (this.pos.y < entity.y && (this.pos.x - this.data.w) > entity.x + 10 &&
           this.pos.x < (entity.x + entity.w) + 34 && this.vel.y >= 0) {
-            console.log("called");
             this.pos.y = entity.y - this.data.h;
             this.vel.y = 0;
           } else if(this.pos.y > entity.y) {
