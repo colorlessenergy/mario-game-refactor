@@ -1,4 +1,6 @@
 const wallArray = [];
+const bricks = [];
+const mysteryBlock = [];
 
 
 class background {
@@ -60,6 +62,13 @@ class background {
             32,
             32
           );
+          bricks.push({
+            x: currentIndex * 32,
+            y: outerIndex * 32,
+            h: 32,
+            w: 32,
+            type: "brick"
+          })
         } else if (inner === 3) {
           self.context.drawImage(
           self.tile,
@@ -72,6 +81,13 @@ class background {
           32,
           32
         );
+        mysteryBlock.push({
+          x: currentIndex * 32,
+          y: outerIndex * 32,
+          h: 32,
+          w: 32,
+          type: "mysteryblock"
+        })
         }
       });
     });

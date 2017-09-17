@@ -12,11 +12,12 @@ sprite.src = "images/sheet.png";
 canvas.width = 480;
 canvas.height = 288;
 
+
 class Game {
   constructor () {
     var self = this;
     this.backgrounds = new background(canvas, context, sprite, tile);
-    this.player = new Player(sprite, context)
+    this.player = new Player(sprite, context, tile)
 
 
     this.update();

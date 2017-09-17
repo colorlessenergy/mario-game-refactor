@@ -1,18 +1,29 @@
 class Player {
-  constructor (sprite, context) {
+  constructor (sprite, context, tile) {
     var self = this;
     this.sprite = sprite;
     this.context = context;
 
-    this.vel = {x: 3.8, y: 0};
+    this.tile = tile,
+
+    this.vel = {x: 4.0, y: 0};
 
     this.pos = {x: 150, y: 0};
-    this.physics = new Physics(this.vel, this.pos);
+
+    this.mushProp = [{x: 825, y: 264, w: 32, h: 32},
+      {x: 1.2, y: 0},
+      {x: 288, y: 128 - 32}
+    ];
+    this.physics = new Physics(this.vel, this.pos, this.context, this.sprite, this.tile);
     this.movement = new Movement(this.pos, this.vel);
+
 
     animations.walking = animations.walkDefined(this.pos);
 
     animations.currentState = animations.jumping;
+
+    this.mushphy = new Physics(this.mushProp[1], this.mushProp[2], this.context, this.sprite, this.tile)
+    this.mush = new Entity(this.mushProp[0], this.tile, this.mushProp[1], this.mushProp[2], this.context, true);
 
   }
 
@@ -23,6 +34,12 @@ class Player {
     this.physics.gravity();
     this.physics.typeOfCollisions();
     this.entity.draw();
+    if (mush) {
+      this.mushphy.gravity();
+      this.mushphy.typeOfCollisions();
+      this.mush.enemyMovement();
+      this.mush.draw();
+    }
   }
 
 }

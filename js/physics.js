@@ -1,7 +1,12 @@
+var mush = false;
+
 class Physics {
-  constructor(vel, pos) {
+  constructor(vel, pos, context, tile) {
     this.vel = vel;
     this.pos = pos
+    this.tile = tile;
+    this.context = context;
+    this.mush = undefined;
   }
 
   gravity() {
@@ -22,13 +27,35 @@ class Physics {
         this.pos.x < (entity.x + entity.w) - 10 && this.vel.y >= 0) {
           this.pos.y = entity.y - 32;
           this.vel.y = 0;
+        } else if(this.pos.y > entity.y) {
+          this.pos.y = entity.y + 32;
         }
+
+
+        if (entity.type === "brick") {
+          console.log("touched brick");
+        }
+
+        if (entity.type === "mysteryblock") {
+          mush = true;
+        }
+
+
+
   }
 
   typeOfCollisions() {
     var self = this;
     wallArray.forEach(function (wall) {
       self.collision(wall)
+    });
+
+    bricks.forEach(function (brick) {
+      self.collision(brick)
+    });
+
+    mysteryBlock.forEach(function (mysteryBlock) {
+      self.collision(mysteryBlock)
     });
   }
 }
