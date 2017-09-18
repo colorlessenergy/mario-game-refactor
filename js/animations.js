@@ -24,6 +24,13 @@ var animations = {
     name: "jumping"
   },
 
+  jumpingL: {
+    x: 282,
+    y: 86,
+    w: 32,
+    h: 32
+  },
+
   walking: undefined,
 
   walkDefined: function (main) {

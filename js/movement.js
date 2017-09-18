@@ -27,6 +27,12 @@ class Movement {
 
     // this makes it stand when the keys aren't pressed so mario
     // doesnt randomly stand
+    // this is for when it is moving left
+    if (this.vel.y === 0 && !(this.isDown(37)) && left) {
+      animations.currentState = animations.standingL;
+    } else if (this.vel.y === 0 && !(this.isDown(39)) && !left) {
+      animations.currentState = animations.standing;
+    }
 
 
     if (this.isDown(39)) {
@@ -49,7 +55,7 @@ class Movement {
     if (this.isDown(37)) {
       left = true;
       if (this.vel.y < 0 || this.vel.y > 0) {
-        animations.currentState = animations.jumping;
+        animations.currentState = animations.jumpingL;
         this.pos.x -= this.vel.x;
       } else if (this.vel.y === 0){
         this.pos.x -= this.vel.x;
@@ -64,9 +70,16 @@ class Movement {
     }
 
     if (this.isDown(38)) {
-      if (this.vel.y === 0) {
-        animations.currentState = animations.jumping;
-        this.vel.y -= 12;
+      if (left) {
+        if (this.vel.y === 0) {
+          animations.currentState = animations.jumpingL;
+          this.vel.y -= 12;
+        }
+      } else {
+        if (this.vel.y === 0) {
+          animations.currentState = animations.jumping;
+          this.vel.y -= 12;
+        }
       }
     }
   }
