@@ -1,7 +1,8 @@
 class Player {
-  constructor (sprite, context, tile) {
+  constructor (sprite, context, tile, left) {
     var self = this;
     this.sprite = sprite;
+    this.spriteLeft = left;
     this.context = context;
 
     this.tile = tile,
@@ -15,7 +16,7 @@ class Player {
       {x: 288, y: 128 - 32}
     ];
 
-    animations.walking = animations.walkDefined(this.pos);
+
 
     animations.currentState = animations.jumping;
 
@@ -30,7 +31,11 @@ class Player {
 
   update () {
     animations.frame++;
-    this.entity = new Entity(animations.currentState, this.sprite, this.vel, this.pos, this.context);
+    if (left) {
+      this.entity = new Entity(animations.currentState, this.spriteLeft, this.vel, this.pos, this.context);
+    } else {
+      this.entity = new Entity(animations.currentState, this.sprite, this.vel, this.pos, this.context);
+    }
     this.movement.animations();
     this.physics.gravity();
     this.physics.typeOfCollisions();
