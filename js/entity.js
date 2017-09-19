@@ -42,6 +42,13 @@ class Entity {
     // to move the mushroom when it exists
     if (this.enemy === true) {
       this.pos.x += this.vel.x;
+      mushroom = {
+        x: this.pos.x,
+        y: this.pos.y,
+        h: 32,
+        w: 32,
+        type: "mushroom"
+      };
     }
   }
 }

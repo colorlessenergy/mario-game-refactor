@@ -20,7 +20,7 @@ class Player {
 
     animations.currentState = animations.jumping;
 
-    this.physics = new Physics(this.vel, this.pos, this.context, this.sprite, animations.currentState);
+    this.physics = new Physics(this.vel, this.pos, this.context, this.sprite, animations.currentState, "mario");
     this.movement = new Movement(this.pos, this.vel);
 
 
@@ -33,7 +33,7 @@ class Player {
     animations.frame++;
     if (left) {
       this.entity = new Entity(animations.currentState, this.spriteLeft, this.vel, this.pos, this.context);
-    } else {
+    } else if (!left || grown){
       this.entity = new Entity(animations.currentState, this.sprite, this.vel, this.pos, this.context);
     }
     this.movement.animations();

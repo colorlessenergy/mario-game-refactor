@@ -16,6 +16,20 @@ var animations = {
     h: 32
   },
 
+  growStandL: {
+    x: 476,
+    y: 0,
+    w: 32,
+    h: 64
+  },
+
+  growStandR: {
+    x: 0,
+    y: 0,
+    w: 32,
+    h: 64
+  },
+
   jumping: {
     x: 194,
     y: 86,
@@ -29,6 +43,13 @@ var animations = {
     y: 86,
     w: 32,
     h: 32
+  },
+
+  growJumpingR: {
+    x: 222,
+    y: 2,
+    w: 32,
+    h: 64
   },
 
   walking: undefined,
@@ -85,8 +106,36 @@ var animations = {
     ];
   },
 
+  growWalkingR: undefined,
+
+  growWalkingRDefined: function () {
+    return [
+      {
+        x: 76,
+        y: 4,
+        w: 32,
+        h: 60
+      },
+
+      {
+        x: 116,
+        y: 2,
+        w: 28,
+        h: 62
+      },
+
+      {
+        x: 146,
+        y: 0,
+        w: 32,
+        h: 64
+      }
+    ];
+  },
+
   currentState: undefined
 };
 
-animations.walkingL = animations.walkDefinedLeft(this.pos);
-animations.walking = animations.walkDefined(this.pos);
+animations.growWalkingR = animations.growWalkingRDefined();
+animations.walkingL = animations.walkDefinedLeft();
+animations.walking = animations.walkDefined();

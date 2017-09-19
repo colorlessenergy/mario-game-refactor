@@ -1,9 +1,11 @@
 var mush = false;
+var mushroom;
+var grown = false;
 
 class Physics {
-  constructor(vel, pos, context, tile, data) {
+  constructor(vel, pos, context, tile, data, entity) {
     this.data = data;
-
+    this.entity = entity;
     this.vel = vel;
     this.pos = pos
     this.tile = tile;
@@ -34,9 +36,14 @@ class Physics {
         }
 
     if (entity.type === "mysteryblock") {
-      mush = true;
+      if (mush !== true) {
+        mush = true;
+      }
     }
-    if (entity.type === "brick") {
+
+    if (entity.type === "mushroom" && this.entity === "mario") {
+      grown = true;
+
     }
 
   }
@@ -54,5 +61,9 @@ class Physics {
     mysteryBlock.forEach(function (mysteryBlock) {
       self.collision(mysteryBlock)
     });
+
+    if (mushroom) {
+      this.collision(mushroom)
+    }
   }
 }
