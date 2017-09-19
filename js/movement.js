@@ -61,7 +61,7 @@ class Movement {
             }
           }
         }
-      } else {
+      } else if (!grown) {
         if (this.vel.y < 0 || this.vel.y > 0) {
           animations.currentState = animations.jumping;
           this.pos.x += this.vel.x;

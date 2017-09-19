@@ -60,7 +60,7 @@ var animations = {
         x: 68,
         y: 88,
         w: 24,
-        h: 30
+        h: 32
       },
 
       {
@@ -94,7 +94,7 @@ var animations = {
         x: 416,
         y: 88,
         w: 24,
-        h: 30
+        h: 32
       },
 
       {

@@ -20,11 +20,12 @@ class Player {
 
     animations.currentState = animations.jumping;
 
-    this.physics = new Physics(this.vel, this.pos, this.context, this.sprite, animations.currentState, "mario");
+    this.physics = new Physics(this.vel, this.pos, this.context, this.sprite, undefined, "mario");
     this.movement = new Movement(this.pos, this.vel);
 
 
-    this.mushphy = new Physics(this.mushProp[1], this.mushProp[2], this.context, this.tile, this.mushProp[0])
+    this.mushphy = new Physics(this.mushProp[1], this.mushProp[2], this.context, this.tile, this.mushProp[0], "mush");
+    console.log(this.mushphy);
     this.mush = new Entity(this.mushProp[0], this.tile, this.mushProp[1], this.mushProp[2], this.context, true);
 
   }
