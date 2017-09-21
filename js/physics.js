@@ -1,7 +1,7 @@
 var mush = false;
 var mushroom;
 var grown = false;
-
+var goomba = true;
 class Physics {
 	constructor(vel, pos, context, tile, data, entity) {
 		this.data = data;
@@ -20,7 +20,7 @@ class Physics {
 	}
 
 	collision(entity) {
-		if (this.entity === "mush") {
+		if (this.entity === "mush" || this.entity === "goomba") {
 			if (this.pos.x < entity.x + entity.w && this.pos.x + this.data.w > entity.x &&
 				this.pos.y < entity.y + entity.h && this.data.h + this.pos.y > entity.y) {
 				this.handleCollision(entity)
@@ -35,7 +35,13 @@ class Physics {
 
 	handleCollision(entity) {
 
-		if (this.entity === "mush") {
+		if (this.entity === "goomba") {
+			if (this.pos.y < entity.y && (this.pos.x + this.data.w) > entity.x + 10 &&
+				this.pos.x < (entity.x + entity.w) - 10 && this.vel.y >= 0) {
+				this.pos.y = entity.y - this.data.h;
+				this.vel.y = 0;
+			}
+		} else if (this.entity === "mush") {
 			if (this.pos.y < entity.y && (this.pos.x + this.data.w) > entity.x + 10 &&
 				this.pos.x < (entity.x + entity.w) - 10 && this.vel.y >= 0) {
 				this.pos.y = entity.y - this.data.h;
@@ -56,7 +62,7 @@ class Physics {
 
 
 		if (entity.type === "mysteryblock") {
-			if (mush !== true) {
+			if (mush !== true && grown === false) {
 				mush = true;
 			}
 		}
@@ -65,7 +71,17 @@ class Physics {
 			console.log("touched mushroom");
 			grown = true;
 			mush = false;
+		}
 
+		if (entity.type === "goomba" && this.entity === "mario") {
+			console.log(this.pos.y, entity.y);
+			if (this.pos.y < entity.y) {
+				goomba = false;
+			} else {
+				console.log("called");
+				this.pos.x = 0;
+				goombaProp[2].x = 400;
+			}
 		}
 
 	}
@@ -86,6 +102,10 @@ class Physics {
 
 		if (mushroom && mush) {
 			this.collision(mushroom)
+		}
+
+		if (goomba) {
+			this.collision(goomba)
 		}
 	}
 }

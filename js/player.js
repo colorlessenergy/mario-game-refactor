@@ -1,3 +1,19 @@
+var goombaProp = [{
+	x: 38,
+	y: 374,
+	w: 32,
+	h: 32
+	},
+	{
+		x: 1.2,
+		y: 0
+	},
+	{
+		x: 400,
+		y: 128 - 32
+	}
+];
+
 class Player {
 	constructor(sprite, context, tile, left) {
 		var self = this;
@@ -14,7 +30,7 @@ class Player {
 
 		this.pos = {
 			x: 150,
-			y: 0
+			y: 0,
 		};
 
 		this.mushProp = [{
@@ -33,8 +49,6 @@ class Player {
 			}
 		];
 
-
-
 		animations.currentState = animations.jumping;
 
 		this.physics = new Physics(this.vel, this.pos, this.context, this.sprite, undefined, "mario");
@@ -44,6 +58,8 @@ class Player {
 		this.mushphy = new Physics(this.mushProp[1], this.mushProp[2], this.context, this.tile, this.mushProp[0], "mush");
 		this.mush = new Entity(this.mushProp[0], this.tile, this.mushProp[1], this.mushProp[2], this.context, true);
 
+		this.goombaPhy = new Physics(goombaProp[1], goombaProp[2], this.context, this.sprite, goombaProp[0], "goomba")
+		this.goomba = new Entity(goombaProp[0], this.sprite, goombaProp[1], goombaProp[2], this.context, false, "goomba");
 	}
 
 	update() {
@@ -61,6 +77,11 @@ class Player {
 			this.mushphy.gravity();
 			this.mushphy.typeOfCollisions();
 			this.mush.enemyMovement();
+		}
+		if (goomba) {
+			this.goombaPhy.gravity();
+			this.goombaPhy.typeOfCollisions();
+			this.goomba.enemyMovement();
 		}
 	}
 
