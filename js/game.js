@@ -32,9 +32,8 @@ class Game {
     context.clearRect(0, 0, canvas.width, canvas.height);//clear the viewport AFTER the matrix is reset
 
    //Clamp the camera position to the world bounds while centering the camera around the player
-   console.log(this.player.pos.x);
-   var camX = this.clamp(-this.player.pos.x + canvas.width / 2, -1000, 1000 - canvas.width);
-   var camY = this.clamp(-this.player.pos.y + canvas.height/2, 0, 0);
+   var camX = this.clamp(-this.player.pos.x + canvas.width / 2, 0, 1000 - canvas.width, true);
+   var camY = this.clamp(-this.player.pos.y + canvas.height/2, 0, 0, false);
 
     context.translate( camX, camY );
 
@@ -43,8 +42,9 @@ class Game {
     this.backgrounds.update();
     this.player.update();
   }
-  clamp(value, min, max)  {
-    if(value < min) return min;
+  clamp(value, min, max, x)  {
+    if((value * -1) < min && x) return min;
+    else if (value < min && !x) return min;
     else if(value > max) return max;
     return value;
   }

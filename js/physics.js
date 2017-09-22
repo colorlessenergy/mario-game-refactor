@@ -57,6 +57,8 @@ class Physics {
 				this.vel.y = 0;
 			} else if (this.pos.y > entity.y) {
 				this.pos.y = entity.y + animations.currentState.h;
+			} else if (entity.x > this.pos.x && entity.y <= this.pos.y) {
+				this.pos.x -= 1;
 			}
 		}
 
