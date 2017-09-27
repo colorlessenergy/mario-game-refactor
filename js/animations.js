@@ -163,9 +163,49 @@ var animations = {
 		];
 	},
 
+	grown: undefined,
+
+	growing: function() {
+		return [{
+				x: 0,
+				y: 70,
+				w: 32,
+				h: 48
+			},
+
+			{
+				x: 0,
+				y: 0,
+				w: 32,
+				h: 64
+			}]
+	},
+
+	grownL: undefined,
+
+	growingL: function () {
+		return [{
+				x: 476,
+				y: 70,
+				w: 32,
+				h: 48
+			},
+
+			{
+				x: 476,
+				y: 0,
+				w: 32,
+				h: 64
+			}]
+
+	},
+
 	currentState: undefined
 };
 
+
+animations.grown = animations.growing();
+animations.grownL = animations.growingL();
 animations.growWalkingR = animations.growWalkingRDefined();
 animations.growWalkingL = animations.growWalkingLDefined();
 animations.walkingL = animations.walkDefinedLeft();

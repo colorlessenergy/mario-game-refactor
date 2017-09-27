@@ -1,4 +1,5 @@
 var left = false;
+var once = true;
 
 class Movement {
 	constructor(pos, vel) {
@@ -30,13 +31,33 @@ class Movement {
 		// this is for when it is moving left
 		if (this.vel.y === 0 && !(this.isDown(37)) && left) {
 			if (grown) {
-				animations.currentState = animations.growStandL;
+				if (mush === false && once) {
+					if (animations.frame % 5 === 0) {
+						animations.currentState = animations.grownL[0];
+						setTimeout(function () {
+							animations.currentState = animations.grownL[1];
+							once = false;
+						}, 100);
+					}
+				} else if (!once) {
+					animations.currentState = animations.growStandL;
+				}
 			} else if (!grown) {
 				animations.currentState = animations.standingL;
 			}
 		} else if (this.vel.y === 0 && !(this.isDown(39)) && !left) {
 			if (grown) {
-				animations.currentState = animations.growStandR;
+				if (mush === false && once) {
+					if (animations.frame % 5 === 0) {
+						animations.currentState = animations.grown[0];
+						setTimeout(function () {
+							animations.currentState = animations.grown[1];
+							once = false;
+						}, 100);
+					}
+				} else if (!once) {
+					animations.currentState = animations.growStandR;
+				}
 			} else if (!grown) {
 				animations.currentState = animations.standing;
 			}
