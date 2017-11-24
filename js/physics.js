@@ -76,11 +76,10 @@ class Physics {
 		}
 
 		if (entity.type === "goomba" && this.entity === "mario") {
-			console.log(this.pos.y, entity.y);
 			if (this.pos.y < entity.y) {
-				goomba = false;
+				goombaDead = true;
 			} else {
-				console.log("called");
+				// resets mario to the beginning of the map and set goomba to the end
 				this.pos.x = 0;
 				goombaProp[2].x = 400;
 			}

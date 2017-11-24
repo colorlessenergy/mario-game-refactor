@@ -1,8 +1,9 @@
-var goombaProp = [{
-	x: 38,
-	y: 374,
-	w: 32,
-	h: 32
+var goombaProp = [
+	{
+		x: 2,
+		y: 374,
+		w: 32,
+		h: 32
 	},
 	{
 		x: 1.2,
@@ -23,10 +24,10 @@ class Player {
 
 		this.tile = tile,
 
-			this.vel = {
-				x: 4.0,
-				y: 0
-			};
+		this.vel = {
+			x: 4.0,
+			y: 0
+		};
 
 		this.pos = {
 			x: 150,
@@ -78,10 +79,12 @@ class Player {
 			this.mushphy.typeOfCollisions();
 			this.mush.enemyMovement();
 		}
-		if (goomba) {
+		if (goombaDead === false && goomba !== false) {
 			this.goombaPhy.gravity();
 			this.goombaPhy.typeOfCollisions();
 			this.goomba.enemyMovement();
+		} else if (goombaDead === true && goombaOffScreen === false) {
+			this.goomba.enemyMovement();			
 		}
 	}
 
