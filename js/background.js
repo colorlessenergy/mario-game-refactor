@@ -15,7 +15,7 @@ class background {
       [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
       [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
       [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-      [1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+      [1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
       [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 0, 1, 1, 1, 1, 1],
       [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 0, 0, 1, 1, 1, 1],
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0],
@@ -30,6 +30,7 @@ class background {
     this.map.forEach(function (outer, outerIndex) {
       outer.forEach(function (inner, currentIndex) {
         if (inner === 1) {
+          // sky
           self.context.fillStyle = "cyan";
           self.context.fillRect(currentIndex * 32, outerIndex * 32, 32, 32)
         } else if (inner === 0) {
@@ -42,15 +43,17 @@ class background {
             currentIndex * 32,
             outerIndex * 32,
             32,
-            32
+            32,
           );
           wallArray.push({
             x: currentIndex * 32,
             y: outerIndex * 32,
             h: 32,
-            w: 32
+            w: 32,
+            type: "wall"
           });
-        } else if (inner === 2) {
+        }
+        else if (inner === 2) {
           self.context.drawImage(
             self.tile,
             33,
@@ -69,7 +72,8 @@ class background {
             w: 32,
             type: "brick"
           })
-        } else if (inner === 3) {
+        }
+        else if (inner === 3) {
           self.context.drawImage(
           self.tile,
           759,

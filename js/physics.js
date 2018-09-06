@@ -11,30 +11,26 @@ class Physics {
 		this.tile = tile;
 		this.context = context;
 		this.mush = undefined;
-	}
 
-	gravity() {
-		this.vel.y += 0.6;
-		this.pos.y += this.vel.y;
-
+		this.movement = new Movement(this.pos, this.vel);
 	}
 
 	collision(entity) {
-		if (this.entity === "mush" || this.entity === "goomba") {
-			if (this.pos.x < entity.x + entity.w && this.pos.x + this.data.w > entity.x &&
-				this.pos.y < entity.y + entity.h && this.data.h + this.pos.y > entity.y) {
-				this.handleCollision(entity)
-			}
-		} else if (this.entity === "mario") {
-			if (this.pos.x < entity.x + entity.w && this.pos.x + animations.currentState.w > entity.x &&
-				this.pos.y < entity.y + entity.h && animations.currentState.h + this.pos.y > entity.y) {
-				this.handleCollision(entity)
+		if (this.entity) {
+			if (this.pos.x < entity.x + entity.w &&
+					this.pos.x + this.data.width > entity.x &&
+					this.pos.y < entity.y + entity.h &&
+					this.pos.y + this.data.height > entity.y) {
+					this.handleCollision(entity)
 			}
 		}
 	}
 
-	handleCollision(entity) {
+	updateFrame(frame) {
+		this.frame = frame;
+	}
 
+	handleCollision(entity) {
 		if (this.entity === "goomba") {
 			if (this.pos.y < entity.y && (this.pos.x + this.data.w) > entity.x + 10 &&
 				this.pos.x < (entity.x + entity.w) - 10 && this.vel.y >= 0) {
@@ -51,17 +47,18 @@ class Physics {
 			}
 
 		} else if (this.entity === "mario") {
-			if (this.pos.y < entity.y && (this.pos.x + animations.currentState.w) > entity.x + 10 &&
-				this.pos.x < (entity.x + entity.w) - 10 && this.vel.y >= 0) {
-				this.pos.y = entity.y - animations.currentState.h;
-				this.vel.y = 0;
-			} else if (this.pos.y > entity.y) {
-				this.pos.y = entity.y + animations.currentState.h;
-			} else if (entity.x > this.pos.x && entity.y <= this.pos.y) {
+			if (entity.x > this.pos.x && entity.y <= this.pos.y) {
+				// console.log('super called3')
+				// if touches left of a block
 				this.pos.x -= 1;
+			}  else if (this.pos.y > entity.y - 32) {
+				// console.log('called not jumping')
+				this.pos.y = entity.y - this.data.height;
+				this.vel.y = 0;
+
+				this.movement.updateVel(this.vel.y);
 			}
 		}
-
 
 		if (entity.type === "mysteryblock") {
 			if (mush !== true && grown === false) {
@@ -100,6 +97,11 @@ class Physics {
 		mysteryBlock.forEach(function(mysteryBlock) {
 			self.collision(mysteryBlock)
 		});
+
+		this.movement.animations();
+
+		this.updateFrame(this.movement.getFrame());
+
 
 		if (mushroom && mush) {
 			this.collision(mushroom)

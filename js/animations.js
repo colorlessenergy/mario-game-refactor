@@ -1,13 +1,115 @@
-var animations = {
-	frame: 0,
+class SpriteSheet {
+	constructor(data) {
+		this.sprites = [];
 
-	standing: {
-		x: 38,
-		y: 86,
-		w: 24,
-		h: 32,
-		name: "standing"
-	},
+		this.load(data);
+
+	}
+
+	load(data) {
+		this.sprites = data.sprites;
+
+	}
+
+	getOffset(spriteName) {
+		for (let i = 0; i < this.sprites.length; i++) {
+			let sprite = this.sprites[i];
+
+			if (sprite.name === spriteName) {
+				return {
+					x: sprite.x,
+					y: (sprite.y || 0),
+					width: sprite.width,
+					height: sprite.height
+				};
+
+			}
+		}
+
+		return null;
+	}
+}
+
+class Animate {
+	constructor(data, sprites) {
+		this.sprites = sprites;
+
+		this.frames = [];
+		this.frame = null;
+		this.frameDuration = 0;
+
+		this.frameIndex = 0;
+
+		this.load(data);
+
+	}
+
+	load(data) {
+		this.frames = data;
+
+		this.frameDuration = data[0].time
+	}
+
+	animate(deltaTime) {
+		// reduce time from duration to show a frame
+		this.frameDuration -= deltaTime;
+
+		// duration has passed
+		if (this.frameDuration <= 0) {
+
+			// change next frame or first
+			this.frameIndex += 1;
+
+			if (this.frameIndex == this.frames.length) {
+				this.frameIndex = 0;
+			}
+
+			// update duration to new duration of sprite
+			this.frameDuration = this.frames[this.frameIndex].time;
+
+		}
+	}
+
+	getSprite() {
+		return this.sprites.getOffset(this.frames[this.frameIndex].sprite);
+	}
+}
+
+
+
+const marioSprites = new SpriteSheet({
+	sprites: [
+		{ name: 'stand', x: 38, y: 86, width: 24, height: 32 },
+		{ name: 'walk_1', x: 68, y: 88, width: 24, height: 30 },
+		{ name: 'walk_2', x: 98, y: 86, width: 22, height: 32 },
+		{ name: 'walk_3', x: 126, y: 86, width: 30, height: 32 },
+		{ name: 'jump', x: 194, y: 86, width: 32, height: 32 }
+	]
+});
+
+
+const animations = {
+	frame: 0,
+	walkingRight: (function () {
+
+		return new Animate(
+		[
+			{ sprite: 'stand', time: 0.2 },
+			{ sprite: 'walk_1', time: 0.2 },
+			{ sprite: 'walk_2', time: 0.2 },
+			{ sprite: 'walk_3', time: 0.2 }
+		], marioSprites)
+	})(),
+
+	stand: new Animate([
+		{ sprite: 'stand', time: 0.2 },
+		{ sprite: 'stand', time: 0.2 }
+	], marioSprites),
+
+	jump: new Animate([
+		{ sprite: 'jump', time: 0.2 },
+		{ sprite: 'jump', time: 0.2 }
+	], marioSprites),
 
 	standingL: {
 		x: 446,
@@ -61,7 +163,7 @@ var animations = {
 
 	walking: undefined,
 
-	walkDefined: function(main) {
+	walkDefined: function() {
 		return [{
 				x: 68,
 				y: 88,
