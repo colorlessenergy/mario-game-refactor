@@ -63,7 +63,7 @@ class Movement {
 
 	updateVel(vel) {
 		this.vel.y = vel;
-		console.log(this.vel.y)
+		// console.log(this.vel.y)
 	}
 
 	animations() {
@@ -76,13 +76,10 @@ class Movement {
 					break;
 				case 38:
 					// TOP
-					this.pressed.top = true;
-					console.log(this.vel.y)
-					if (this.vel.y === 0) {
-						console.log('called')
+					if (this.pressed.jumping == false) {
+						console.log('called true')
+						this.pressed.top = true;
 						this.pressed.jumping = true;
-					} else {
-						this.pressed.jumping = false;
 					}
 					break;
 				case 39:
@@ -100,7 +97,10 @@ class Movement {
 					break;
 				case 38:
 					// TOP
-					this.pressed.top = false;
+
+					if (this.pressed.jumping == true) {
+						this.pressed.top = false;
+					}
 					break;
 				case 39:
 					// RIGHT
@@ -124,8 +124,12 @@ class Movement {
 			this.frame = animations.jump.getSprite();
 		}
 
-		if (this.pressed.top && this.pressed.jumping) {
-			this.vel.y -= 20;
+		if (this.pressed.top && this.pressed.jumping && this.vel.y == 0) {
+			this.vel.y -= 100;
+		}
+
+		if (this.vel.y === 0) {
+			this.pressed.jumping = false;
 		}
 
 		if (this.pressed.left) {
