@@ -47,18 +47,36 @@ class Physics {
 			}
 
 		} else if (this.entity === "mario") {
+
 			if (entity.x > this.pos.x && entity.y <= this.pos.y) {
-				// console.log('super called3')
+				console.log('left side of block')
 				// if touches left of a block
-				this.pos.x -= 1;
-			}  else if (this.pos.y > entity.y - 32) {
-				// console.log('called not jumping')
+				this.pos.x -= 2;
+			}
+
+			if (entity.x < this.pos.x && entity.y <= this.pos.y) {
+				console.log('right side of block')
+				this.pos.x += 2;
+			}
+
+			this.vel.y = this.movement.getVel();
+
+
+			// if it is inside the block and
+			// if (this.pos.y < entity.y + entity.h && this.pos.x + this.data.width < entity.x) {
+			if (this.pos.y > entity.y) {
+				// under the block
+				this.pos.y = entity.y + this.data.height;
+				console.log('under the block');
+			}else if (this.pos.y > entity.y - 32) {
 				this.pos.y = entity.y - this.data.height;
 				this.vel.y = 0;
-
 				this.movement.updateVel(this.vel.y);
+
+				console.log('called on top of a block')
 			}
 		}
+
 
 		if (entity.type === "mysteryblock") {
 			if (mush !== true && grown === false) {

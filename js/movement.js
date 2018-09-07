@@ -61,6 +61,10 @@ class Movement {
 		return this.frame;
 	}
 
+	getVel() {
+		return this.vel.y;
+	}
+
 	updateVel(vel) {
 		this.vel.y = vel;
 		// console.log(this.vel.y)
@@ -77,7 +81,7 @@ class Movement {
 				case 38:
 					// TOP
 					if (this.pressed.jumping == false) {
-						console.log('called true')
+						// console.log('called true')
 						this.pressed.top = true;
 						this.pressed.jumping = true;
 					}
